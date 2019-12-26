@@ -1,40 +1,43 @@
 # fluent-plugin-raven
 
-[Fluentd](https://fluentd.org/) output plugin to do something.
+[Fluentd](https://fluentd.org/) output plugin for [Sentry](https://sentry.io/welcome/).
 
-TODO: write description for you plugin.
 
 ## Installation
-
-### RubyGems
 
 ```
 $ gem install fluent-plugin-raven
 ```
 
-### Bundler
-
-Add following line to your Gemfile:
-
-```ruby
-gem "fluent-plugin-raven"
-```
-
-And then execute:
-
-```
-$ bundle
-```
 
 ## Configuration
 
-You can generate configuration template:
+### Tag
+
+If `tag` is specified as bufferd chunk key, it send as tag for sentry.
+
+### config params
+
+- `dsn`: DSN KEY shown at setting page
+- `environment`: set environment
+
+
+### Example
 
 ```
-$ fluent-plugin-config-format output raven
+<match **>
+  @type       sentry
+  dsn         https://12345678@sentry.io/123456 
+  environment development
+  <buffer tag>
+    @type file
+    path  fluentd/log/error.*.buffer
+    timekey 5m
+    timekey_wait 1m
+    flush_interval 1s
+  </buffer>
+</match>
 ```
-
-You can copy and paste generated documents here.
 
 ## Copyright
 
