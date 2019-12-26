@@ -14,11 +14,43 @@
 # limitations under the License.
 
 require "fluent/plugin/output"
+require "raven"
 
-module Fluent
-  module Plugin
-    class RavenOutput < Fluent::Plugin::Output
-      Fluent::Plugin.register_output("raven", self)
+module Fluent::Plugin
+  class SentryOutput < Output
+    Fluent::Plugin.register_output("raven", self)
+
+    helpers :inject
+
+    config_param :dsn, :string, default: nil
+    config_param :environment, :string, default: nil
+    config_param :default_level, :string, :default => 'error'
+
+    def configure(conf)
+      super
+
+      Raven.configure do |config|
+        config.dsn = dsn
+        config.current_environment = environment
+      end
+    end
+
+    def start
+      super
+    end
+
+    def write(chunk)
+      tag = chunk.metadata.tag
+      chunk.each do |time, record|
+        Raven.capture_message record['message'],
+                              logger: 'fluent-sentry-logger',
+                              level: record['level'] || @default_level,
+                              tags: {
+                                  worker: record['worker'],
+                                  tag: tag
+                              }
+      end
     end
   end
 end
+
