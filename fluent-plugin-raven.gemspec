@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name    = "fluent-plugin-raven"
-  spec.version = "0.1.0"
+  spec.version = "0.1.1"
   spec.authors = ["Yuto Suzuki"]
   spec.email   = ["yuutoo.advance@gmail.com"]
 
@@ -24,5 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "test-unit", "~> 3.0"
   spec.add_runtime_dependency "fluentd", [">= 0.14.10", "< 2"]
-  spec.add_runtime_dependency "raven-sentry" ">= 2.13.0"
+  spec.add_runtime_dependency "raven-sentry" ">= 2.10.0"
 end
