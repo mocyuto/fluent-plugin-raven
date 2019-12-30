@@ -6,8 +6,13 @@ class RavenOutputTest < Test::Unit::TestCase
     Fluent::Test.setup
   end
 
-  test "failure" do
-    flunk
+  sub_test_case 'configure' do
+    test 'check default' do
+      d = nil
+      assert_raise do
+        d = create_driver('')
+      end
+    end
   end
 
   private
