@@ -20,14 +20,20 @@ If `tag` is specified as bufferd chunk key, it send as tag for sentry.
 
 - `dsn`: DSN KEY shown at setting page
 - `environment`: set environment
+- `default_level`: set default log level for sentry. default value is `error`
+
+### record keys
+
+- `message`: message body for sentry as events.
+- `level`: log level for sentry as events.
 
 
 ### Example
 
-```
+```aconf
 <match **>
   @type       sentry
-  dsn         https://12345678@sentry.io/123456 
+  dsn         https://12345678@sentry.io/123456
   environment development
   <buffer tag>
     @type file
