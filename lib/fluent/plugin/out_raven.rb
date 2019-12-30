@@ -17,7 +17,7 @@ require "fluent/plugin/output"
 require "raven"
 
 module Fluent::Plugin
-  class SentryOutput < Output
+  class RavenOutput < Output
     Fluent::Plugin.register_output("raven", self)
 
     helpers :inject
@@ -28,6 +28,10 @@ module Fluent::Plugin
 
     def configure(conf)
       super
+
+      if dsn == nil
+        raise Fluent::ConfigError, "Need to Set DSN"
+      end
 
       Raven.configure do |config|
         config.dsn = dsn

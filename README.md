@@ -18,8 +18,8 @@ If `tag` is specified as bufferd chunk key, it send as tag for sentry.
 
 ### config params
 
-- `dsn`: DSN KEY shown at setting page
-- `environment`: set environment
+- `dsn` (required): DSN KEY shown at setting page
+- `environment` : set environment
 - `default_level`: set default log level for sentry. default value is `error`
 
 ### record keys
