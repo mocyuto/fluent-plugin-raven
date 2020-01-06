@@ -32,7 +32,7 @@ If `tag` is specified as bufferd chunk key, it send as tag for sentry.
 
 ```aconf
 <match **>
-  @type       sentry
+  @type       raven
   dsn         https://12345678@sentry.io/123456
   environment development
   <buffer tag>
