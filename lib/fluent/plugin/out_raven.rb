@@ -16,7 +16,7 @@
 # limitations under the License.
 
 require 'fluent/plugin/output'
-require 'raven'
+require 'sentry-ruby'
 
 module Fluent::Plugin
   class RavenOutput < Output
@@ -33,9 +33,8 @@ module Fluent::Plugin
 
       raise Fluent::ConfigError, 'Need to Set DSN' if dsn.nil?
 
-      Raven.init do |config|
+      Sentry.init do |config|
         config.dsn = dsn
-        config.current_environment = environment
       end
     end
 
@@ -51,7 +50,8 @@ module Fluent::Plugin
                                tags: {
                                  logger: 'fluent-sentry-logger',
                                  worker: record['worker'],
-                                 tag: tag
+                                 tag: tag,
+                                 environment: environment
                                }
       end
     end
