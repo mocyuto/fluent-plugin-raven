@@ -33,7 +33,7 @@ module Fluent::Plugin
 
       raise Fluent::ConfigError, 'Need to Set DSN' if dsn.nil?
 
-      Raven.configure do |config|
+      Raven.init do |config|
         config.dsn = dsn
         config.current_environment = environment
       end
@@ -46,13 +46,13 @@ module Fluent::Plugin
     def write(chunk)
       tag = chunk.metadata.tag
       chunk.each do |_time, record|
-        Raven.capture_message record['message'],
-                              logger: 'fluent-sentry-logger',
-                              level: record['level'] || @default_level,
-                              tags: {
-                                worker: record['worker'],
-                                tag: tag
-                              }
+        Sentry.capture_message record['message'],
+                               level: record['level'] || @default_level,
+                               tags: {
+                                 logger: 'fluent-sentry-logger',
+                                 worker: record['worker'],
+                                 tag: tag
+                               }
       end
     end
   end
