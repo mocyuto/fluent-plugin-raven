@@ -45,6 +45,13 @@ If `tag` is specified as bufferd chunk key, it send as tag for sentry.
 </match>
 ```
 
+## Development
+
+```
+bundle install
+bundle exec fluentd -c example/fluentd.conf
+```
+
 ## Copyright
 
 * Copyright(c) 2019- Yuto Suzuki

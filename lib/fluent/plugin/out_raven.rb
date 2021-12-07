@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Copyright 2019- Yuto Suzuki
 #
@@ -13,29 +15,26 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "fluent/plugin/output"
-require "raven"
+require 'fluent/plugin/output'
+require 'sentry-ruby'
 
 module Fluent::Plugin
   class RavenOutput < Output
-    Fluent::Plugin.register_output("raven", self)
+    Fluent::Plugin.register_output('raven', self)
 
     helpers :inject
 
     config_param :dsn, :string, default: nil
     config_param :environment, :string, default: nil
-    config_param :default_level, :string, :default => 'error'
+    config_param :default_level, :string, default: 'error'
 
     def configure(conf)
       super
 
-      if dsn == nil
-        raise Fluent::ConfigError, "Need to Set DSN"
-      end
+      raise Fluent::ConfigError, 'Need to Set DSN' if dsn.nil?
 
-      Raven.configure do |config|
+      Sentry.init do |config|
         config.dsn = dsn
-        config.current_environment = environment
       end
     end
 
@@ -45,16 +44,16 @@ module Fluent::Plugin
 
     def write(chunk)
       tag = chunk.metadata.tag
-      chunk.each do |time, record|
-        Raven.capture_message record['message'],
-                              logger: 'fluent-sentry-logger',
-                              level: record['level'] || @default_level,
-                              tags: {
-                                  worker: record['worker'],
-                                  tag: tag
-                              }
+      chunk.each do |_time, record|
+        Sentry.capture_message record['message'],
+                               level: record['level'] || @default_level,
+                               tags: {
+                                 logger: 'fluent-sentry-logger',
+                                 worker: record['worker'],
+                                 tag: tag,
+                                 environment: environment
+                               }
       end
     end
   end
 end
-
