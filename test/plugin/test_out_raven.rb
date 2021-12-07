@@ -1,5 +1,7 @@
-require "helper"
-require "fluent/plugin/out_raven.rb"
+# frozen_string_literal: true
+
+require 'helper'
+require 'fluent/plugin/out_raven'
 
 class RavenOutputTest < Test::Unit::TestCase
   setup do
