@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name    = 'fluent-plugin-raven'
-  spec.version = '0.1.4'
+  spec.version = '0.1.5'
   spec.authors = ['Yuto Suzuki']
   spec.email   = ['yuutoo.advance@gmail.com']
 
@@ -21,10 +21,12 @@ Gem::Specification.new do |spec|
   spec.executables   = files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = test_files
   spec.require_paths = ['lib']
+  spec.required_ruby_version = '>= 2.5'
 
-  spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'test-unit'
   spec.add_runtime_dependency 'fluentd', ['>= 0.14.10', '< 2']
   spec.add_runtime_dependency 'sentry-ruby', '< 5'
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rubocop-rake'
+  spec.add_development_dependency 'test-unit'
 end
