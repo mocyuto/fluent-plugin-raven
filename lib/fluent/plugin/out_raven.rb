@@ -35,6 +35,7 @@ module Fluent::Plugin
 
       Sentry.init do |config|
         config.dsn = dsn
+        config.environment = environment
       end
     end
 
@@ -50,8 +51,7 @@ module Fluent::Plugin
                                tags: {
                                  logger: 'fluent-sentry-logger',
                                  worker: record['worker'],
-                                 tag: tag,
-                                 environment: environment
+                                 tag: tag
                                }
       end
     end
