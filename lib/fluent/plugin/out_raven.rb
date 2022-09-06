@@ -26,6 +26,7 @@ module Fluent::Plugin
 
     config_param :dsn, :string, default: nil
     config_param :environment, :string, default: nil
+    config_param :logger_level, :string, default: 'info'
     config_param :default_level, :string, default: 'error'
 
     def configure(conf)
@@ -34,6 +35,7 @@ module Fluent::Plugin
       raise Fluent::ConfigError, 'Need to Set DSN' if dsn.nil?
 
       Sentry.init do |config|
+        config.logger.level = logger_level
         config.dsn = dsn
         config.environment = environment
       end

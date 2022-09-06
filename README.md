@@ -20,6 +20,7 @@ If `tag` is specified as bufferd chunk key, it send as tag for sentry.
 
 - `dsn` (required): DSN KEY shown at setting page
 - `environment` : set environment
+- `logger_level` : set log level of the sentry logger. default value is `info`
 - `default_level`: set default log level for sentry. default value is `error`
 
 ### record keys
@@ -32,9 +33,10 @@ If `tag` is specified as bufferd chunk key, it send as tag for sentry.
 
 ```aconf
 <match **>
-  @type       raven
-  dsn         https://12345678@sentry.io/123456
-  environment development
+  @type        raven
+  dsn          https://12345678@sentry.io/123456
+  logger_level warn
+  environment  development
   <buffer tag>
     @type file
     path  fluentd/log/error.*.buffer
