@@ -25,7 +25,7 @@ If `tag` is specified as bufferd chunk key, it send as tag for sentry.
 
 ### record keys
 
-- `message`: message body for sentry as events.
+- `message` (required): message body for sentry as events.
 - `level`: log level for sentry as events.
 
 
