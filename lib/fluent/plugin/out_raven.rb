@@ -25,7 +25,7 @@ module Fluent::Plugin
     helpers :inject
 
     config_param :dsn, :string, default: nil
-    config_param :environment, :string, default: nil
+    config_param :environment, :string, default: 'development'
     config_param :logger_level, :string, default: 'info'
     config_param :default_level, :string, default: 'error'
 
@@ -47,12 +47,15 @@ module Fluent::Plugin
 
     def write(chunk)
       tag = chunk.metadata.tag
-      chunk.each do |_time, record|
+      chunk
+        .each do |_time, record|
+        next if record['message'].nil?
+
         Sentry.capture_message record['message'],
                                level: record['level'] || @default_level,
                                tags: {
                                  logger: 'fluent-sentry-logger',
-                                 worker: record['worker'],
+                                 worker: record['worker'] || Socket.gethostname,
                                  tag: tag
                                }
       end
