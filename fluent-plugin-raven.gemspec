@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name    = 'fluent-plugin-raven'
-  spec.version = '0.1.7'
+  spec.version = '0.1.8'
   spec.authors = ['Yuto Suzuki']
   spec.email   = ['yuutoo.advance@gmail.com']
 
