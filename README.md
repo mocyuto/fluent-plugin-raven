@@ -14,19 +14,19 @@ $ gem install fluent-plugin-raven
 
 ### Tag
 
-If `tag` is specified as bufferd chunk key, it send as tag for sentry.
+If `tag` is specified as bufferd chunk key, it send as tag for Sentry.
 
 ### config params
 
 - `dsn` (required): DSN KEY shown at setting page
-- `environment` : set environment
-- `logger_level` : set log level of the sentry logger. default value is `info`
-- `default_level`: set default log level for sentry. default value is `error`
+- `environment` : set environment. default values is `development`
+- `logger_level` : set log level of the Sentry logger. default value is `info`
+- `default_level`: set default log level for Sentry. default value is `error`
 
 ### record keys
 
-- `message` (required): message body for sentry as events.
-- `level`: log level for sentry as events.
+- `message` (required): message body for sentry as events. A record will be filtered if `message` isn't set, because Sentry identify issues by `message` value. 
+- `level`: log level for Sentry as events.
 
 
 ### Example
